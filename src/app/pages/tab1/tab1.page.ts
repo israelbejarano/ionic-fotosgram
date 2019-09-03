@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
-import { RespuestaPosts } from '../../interfaces/interfaces';
+import { RespuestaPosts, Post } from '../../interfaces/interfaces';
 
 @Component({
   selector: 'app-tab1',
@@ -9,11 +9,14 @@ import { RespuestaPosts } from '../../interfaces/interfaces';
 })
 export class Tab1Page implements OnInit {
 
+  posts: Post[] = [];
+
   constructor(private postsService: PostService) {}
 
   ngOnInit() {
     this.postsService.getPosts().subscribe((resp: RespuestaPosts) => {
       console.log(resp);
+      this.posts.push(...resp.posts);
     });
   }
 
