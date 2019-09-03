@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IonSlides, NavController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
+import { UiServiceService } from '../../services/ui-service.service';
 
 @Component({
   selector: 'app-login',
@@ -56,14 +57,15 @@ export class LoginPage implements OnInit {
     password: '123456'
   };
 
-  constructor(private usuarioService: UsuarioService, private navCtrl: NavController) { }
+  constructor(private usuarioService: UsuarioService, private navCtrl: NavController,
+              private uiService: UiServiceService) { }
 
   ngOnInit() {
     this.slides.lockSwipes(true);
   }
 
   async login(fLogin: NgForm) {
-    if (fLogin.invalid) {return;}
+    if (fLogin.invalid) { return; }
     const valido = await this.usuarioService.login(this.loginUser.email, this.loginUser.password);
     console.log(this.loginUser);
     if (valido) {
@@ -71,6 +73,7 @@ export class LoginPage implements OnInit {
       this.navCtrl.navigateRoot('/main/tabs/tab1', {animated: true});
     } else {
       // mostrar alerta usuario password incorrecto
+      this.uiService.alertaInformativa('Usuario y contraseña incorrectos');
     }
   }
 
