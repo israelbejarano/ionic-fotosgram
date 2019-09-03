@@ -10,6 +10,7 @@ import { RespuestaPosts, Post } from '../../interfaces/interfaces';
 export class Tab1Page implements OnInit {
 
   posts: Post[] = [];
+  habilitado = true;
 
   constructor(private postsService: PostService) {}
 
@@ -17,18 +18,23 @@ export class Tab1Page implements OnInit {
     this.siguientes();
   }
 
-  siguientes(event?) {
-    this.postsService.getPosts().subscribe((resp: RespuestaPosts) => {
+  recargar(event) {
+    this.siguientes(event, true);
+    this.habilitado = true;
+    this.posts = [];
+  }
+
+  siguientes(event?, pull: boolean = false) {
+    this.postsService.getPosts(pull).subscribe((resp: RespuestaPosts) => {
       console.log(resp);
       this.posts.push(...resp.posts);
       if (event) {
         event.target.complete();
         // desactivar el infinite scroll para evitar la carga cuando llegue el final
         if (resp.posts.length === 0) {
-          event.target.disabled = true;
+          this.habilitado = false;
         }
       }
     });
   }
-
 }
