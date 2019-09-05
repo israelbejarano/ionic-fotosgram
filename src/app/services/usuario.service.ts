@@ -13,7 +13,7 @@ const URL = environment.url;
 export class UsuarioService {
 
   token: string = null;
-  usuario: Usuario = {};
+  private usuario: Usuario = {};
 
   constructor(private http: HttpClient, private storage: Storage, private navController: NavController) { }
 
@@ -48,6 +48,16 @@ export class UsuarioService {
         }
       });
     });
+  }
+
+  getUsuario() {
+    if (!this.usuario._id) {
+      this.validaToken();
+    }
+    // destruye la relacion que js tiene con el objeto y asi
+    // retorna un nuevo objeto (evitamos el paso por referencia)
+    // destructuracion del objeto usuario:
+    return {...this.usuario};
   }
 
   async guardarToken(token: string) {
