@@ -21,7 +21,7 @@
         </ion-col>
     </ion-row>
     <app-avatar-selector></app-avatar-selector>
-    <form>
+    <form (ngSubmit)="actualizar(fActualizar)" #fActualizar>
         <ion-row>
             <ion-col>
                 <ion-list>
