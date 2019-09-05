@@ -60,7 +60,7 @@ export class UsuarioService {
   }
 
   async validaToken(): Promise<boolean> {
-    await this.validaToken();
+    await this.cargarToken();
     if (!this.token) {
       this.navController.navigateRoot('/login');
       return Promise.resolve(false);
