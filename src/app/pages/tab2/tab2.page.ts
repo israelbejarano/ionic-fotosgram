@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { Router } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
+declare var window: any; // para no usar base64 ya que satura mucho la app.
 
 @Component({
   selector: 'app-tab2',
@@ -18,7 +21,8 @@ export class Tab2Page {
   };
   cargandoGeo = false;
 
-  constructor(private postService: PostService, private route: Router, private geolocation: Geolocation) {}
+  constructor(private postService: PostService, private route: Router, private geolocation: Geolocation,
+              private camera: Camera) {}
 
 
 
@@ -49,6 +53,27 @@ export class Tab2Page {
        this.cargandoGeo = false;
      });
     console.log(this.post);
+  }
+
+  camara() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
+      sourceType: this.camera.PictureSourceType.CAMERA
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+     // imageData is either a base64 encoded string or a file URI
+     // If it's base64 (DATA_URL):
+     const img = window.Ionic.WebView.convertFileSrc(imageData);
+     console.log(img);
+     this.tempImages.push(img);
+    }, (err) => {
+     // Handle error
+    });
   }
 
 }
