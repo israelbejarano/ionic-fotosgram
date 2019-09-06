@@ -9,7 +9,7 @@ const routes: Routes = [
     canLoad: [UsuarioGuard]
   },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
-  {path: '', pathMatch: 'full', redirectTo: 'login'}
+  {path: '', pathMatch: 'full', redirectTo: 'main/tabs/tab1'}
 ];
 @NgModule({
   imports: [
