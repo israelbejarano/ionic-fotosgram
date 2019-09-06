@@ -99,9 +99,21 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-
-    <!-- para que funcione la geo localizacion en iOs-->
-    <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+    <!-- para permitir en iOS la geolocalizacion-->
+    <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
         <string>Necesito tu autorización para saber tu localización</string>
+    </edit-config>
+    <!-- para permitir en iOS la camara-->
+    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+    <string>Se necesita acceso para tomar fotos</string>
+    </edit-config>
+    <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
+        <string>Se necesita acceso a la librería</string>
+    </edit-config>
+    <edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+        <string>Se necesita geolocation</string>
+    </edit-config>
+    <edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
+        <string>Se necesita acceso para guardar las fotos</string>
     </edit-config>
 </widget>
